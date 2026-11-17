@@ -10,14 +10,14 @@ const paths={
  engines:'./assets/ion_thrusters.glb',shuttle:'./assets/recon_shuttle.glb',
  petals8:'./assets/parametric_petals_8.glb',petals10:'./assets/parametric_petals_10.glb',petals12:'./assets/parametric_petals_12.glb'
 };
-let selectedCount='8',ready=false,loaded=0;
+let selectedCount='10',ready=false,loaded=0;
 const models=new Map(),scene=new THREE.Scene();
 const camera=new THREE.PerspectiveCamera(42,1,.1,200);camera.position.set(12,9,15);
 const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,preserveDrawingBuffer:true});
 renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));
 renderer.outputColorSpace=THREE.SRGBColorSpace;
 renderer.toneMapping=THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure=1.5;
+renderer.toneMappingExposure=1.32;
 viewport.appendChild(renderer.domElement);
 const controls=new OrbitControls(camera,renderer.domElement);
 controls.target.set(0,.55,0);controls.enableDamping=true;controls.autoRotateSpeed=.6;controls.minDistance=3;controls.maxDistance=55;controls.update();
