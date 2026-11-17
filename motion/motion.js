@@ -1,3 +1,4 @@
+import {instanceMatrix} from './kinematics.js';
 import * as THREE from 'three';
 import {OrbitControls} from '../vendor/OrbitControls.js';
 import {GLTFLoader} from '../vendor/GLTFLoader.js';
@@ -12,7 +13,14 @@ const key=new THREE.DirectionalLight(0xffefdb,3.7);key.position.set(7,13,10);sce
 const rim=new THREE.DirectionalLight(0x9cbcf9,2.0);rim.position.set(-10,6,-8);scene.add(rim);
 let rig,groups=[],staticRoot,count=10,fold=0,ready=false,angle='iso';
 const gltf=new GLTFLoader(),temp=new THREE.Matrix4(),yaw=new THREE.Matrix4(),tilt=new THREE.Matrix4(),scale=new THREE.Matrix4();
-const load=url=>new Promise((resolve,reject)=>gltf.load(url,data=>resolve(data.scene),undefined,reject));
+async function load(url){
+ let failure;
+ for(let attempt=0;attempt<3;attempt++){
+  try{return await new Promise((resolve,reject)=>gltf.load(url,data=>resolve(data.scene),undefined,reject));}
+  catch(err){failure=err;if(attempt<2)await new Promise(r=>setTimeout(r,900*(attempt+1)));}
+ }
+ throw failure;
+}
 function prototypes(root){root.updateMatrixWorld(true);const out=[];root.traverse(ob=>{if(ob.isMesh)out.push({geometry:ob.geometry,material:ob.material,base:ob.matrixWorld.clone()});});return out;}
 function addSet(label,parts){const record={label,items:[]};for(const p of parts){const m=new THREE.InstancedMesh(p.geometry,p.material,12);m.frustumCulled=false;m.instanceMatrix.setUsage(THREE.DynamicDrawUsage);scene.add(m);record.items.push({mesh:m,base:p.base});}groups.push(record);return record;}
 function updateRig(){
@@ -20,10 +28,7 @@ function updateRig(){
  for(const g of groups){const inner=g.label.startsWith('inner'),hub=g.label.endsWith('hub');const cfg=inner?rig.inner:rig.outer,n=counts[inner?'inner':'outer'];
   const width=Math.pow(cfg.referenceCount/n,.75);
   for(const item of g.items){item.mesh.count=n;for(let i=0;i<n;i++){
-   const theta=2*Math.PI*(i+cfg.angleOffset)/n;
-   temp.makeTranslation(cfg.radius*Math.cos(theta),cfg.height,-cfg.radius*Math.sin(theta));yaw.makeRotationY(theta);temp.multiply(yaw);
-   if(!hub){tilt.makeRotationZ(cfg.foldRadians*fold);scale.makeScale(1,1,width);temp.multiply(tilt).multiply(scale);}
-   temp.multiply(item.base);item.mesh.setMatrixAt(i,temp);
+   item.mesh.setMatrixAt(i,instanceMatrix(THREE,cfg,n,i,fold,hub,item.base));
   }item.mesh.instanceMatrix.needsUpdate=true;}
  }
  $('count-label').textContent=String(count).padStart(2,'0')+' / '+String(counts.inner).padStart(2,'0');
