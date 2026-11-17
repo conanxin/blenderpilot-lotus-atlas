@@ -2,15 +2,15 @@
 <body><div class="app">
 <header><div class="brand"><span class="logo">✳</span><div><b>BLENDERPILOT</b><small>THREE-DIMENSIONAL RESEARCH ATLAS</small></div></div><span class="edition">P2-J · LOTUS ARK L2</span><a href="https://app.notion.com/p/41b34a28189a81a082bcf59a9b051cc3" target="_blank" rel="noreferrer">研究主档 ↗</a><a class="legacy-link" href="./l1/" title="对比旧版星舰 L1">旧版 L1 ↗</a></header>
 <main><aside><section class="intro"><p class="eyebrow">PARAMETRIC SPACECRAFT</p><h1>莲花 <em>星舰</em></h1><p>双层仿生花瓣与精密桁架构成的第二代星舰。探索莲蓬双舱、分段太阳帆、聚变核心及六组离子推进器。</p></section>
-<section><h2><span>01</span> 花瓣数量</h2><div class="variants"><label><input type="radio" name="petals" value="8"><span>08</span></label><label><input type="radio" name="petals" value="10" checked><span>10</span></label><label><input type="radio" name="petals" value="12"><span>12</span></label></div><p class="muted">L2 造型：外层机械花瓣与内层柔性花瓣；14 种 PBR 材质。</p></section>
+<section><h2><span>01</span> 花瓣数量</h2><div class="variants"><label><input id="petal-8" type="radio" name="petals" value="8"><span>08</span></label><label><input id="petal-10" type="radio" name="petals" value="10" checked><span>10</span></label><label><input id="petal-12" type="radio" name="petals" value="12"><span>12</span></label></div><p class="muted">L2 造型：外层机械花瓣与内层柔性花瓣；14 种 PBR 材质。</p></section>
 <section><h2><span>02</span> 模块显示</h2><div class="modules">
-<label><input type="checkbox" data-module="petals" checked><i style="background:#d6a1b8"></i>双层莲花 / 机械花瓣</label>
-<label><input type="checkbox" data-module="hull" checked><i style="background:#d6bb83"></i>舰体 / 双莲蓬指挥舱</label>
-<label><input type="checkbox" data-module="sails" checked><i style="background:#6796cc"></i>分段太阳帆 / 桁架</label>
-<label><input type="checkbox" data-module="engines" checked><i style="background:#53babf"></i>聚变核心 / 离子推进</label>
-<label><input type="checkbox" data-module="shuttle" checked><i style="background:#94acba"></i>侦察穿梭机 / 停靠臂</label>
+<label><input id="module-petals" type="checkbox" data-module="petals" checked><i style="background:#d6a1b8"></i>双层莲花 / 机械花瓣</label>
+<label><input id="module-hull" type="checkbox" data-module="hull" checked><i style="background:#d6bb83"></i>舰体 / 双莲蓬指挥舱</label>
+<label><input id="module-sails" type="checkbox" data-module="sails" checked><i style="background:#6796cc"></i>分段太阳帆 / 桁架</label>
+<label><input id="module-engines" type="checkbox" data-module="engines" checked><i style="background:#53babf"></i>聚变核心 / 离子推进</label>
+<label><input id="module-shuttle" type="checkbox" data-module="shuttle" checked><i style="background:#94acba"></i>侦察穿梭机 / 停靠臂</label>
 </div><div class="inline"><button id="all-on">全部显示</button><button id="all-off">全部隐藏</button></div></section>
-<section><h2><span>03</span> 视角与显示</h2><div class="views"><button data-view="iso" class="selected">等轴测</button><button data-view="top">俯视</button><button data-view="side">侧视</button></div><label class="switch"><input type="checkbox" id="auto-rotate"> 自动环绕</label><label class="switch"><input type="checkbox" id="wireframe"> 线框模式</label></section>
+<section><h2><span>03</span> 视角与显示</h2><div class="views"><button id="view-iso" data-view="iso" class="selected">等轴测</button><button id="view-top" data-view="top">俯视</button><button id="view-side" data-view="side">侧视</button></div><label class="switch"><input type="checkbox" id="auto-rotate"> 自动环绕</label><label class="switch"><input type="checkbox" id="wireframe"> 线框模式</label></section>
 <div class="aside-foot"><div><small>ORIGIN</small><span>Blender 5.3.0</span></div><div><small>ASSET INVENTORY</small><span>430 (10 petals) source objects</span></div><div><small>MODE</small><span>Local research prototype</span></div></div></aside>
 <article><div class="topline"><div><small>LIVE THREE-DIMENSIONAL WORKSPACE</small><h3>LOTUS ARK L2 <strong id="stage-count">10</strong> <span>/ 五组件</span></h3></div><div class="actions"><a class="render-link" href="./assets/lotus_ark_l2_hero.jpg" target="_blank" rel="noreferrer">Eevee 渲染图 ↗</a><button id="reset-camera">复位视角</button><button id="capture">保存截图 ↧</button></div></div>
 <div id="viewport"><div id="loader"><span class="spinner"></span><span id="load-text">正在加载三维资产 …</span></div><p class="hint">拖动旋转 · 滚轮或双指缩放 · 右键平移</p><div id="error" role="alert" hidden></div></div>
