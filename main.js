@@ -4,7 +4,7 @@ import {GLTFLoader} from './vendor/GLTFLoader.js';
 
 const el=id=>document.getElementById(id);
 const viewport=el('viewport'),loader=el('loader'),loadText=el('load-text');
-const status=el('status'),countLabel=el('stage-count'),meshLabel=el('mesh-count'),visibleLabel=el('visible-count');
+const status=el('status'),countLabel=el('stage-count'),meshLabel=el('mesh-count'),visibleLabel=el('visible-count'),triangleLabel=el('triangle-count');
 const paths={
  hull:'./assets/central_hull.glb',sails:'./assets/solar_sails.glb',
  engines:'./assets/ion_thrusters.glb',shuttle:'./assets/recon_shuttle.glb',
@@ -31,9 +31,9 @@ function update(){
  for(const [id,root] of models){
   root.visible=id.startsWith('petals')?(checked('petals')&&id==='petals'+selectedCount):checked(id);
  }
- let count=0,shown=0;
- for(const root of models.values())if(root.visible){shown++;root.traverse(o=>{if(o.isMesh)count++;});}
- countLabel.textContent=selectedCount.padStart(2,'0');meshLabel.textContent=String(count);visibleLabel.textContent=shown+' / 5';
+ let count=0,shown=0,triangles=0;
+ for(const root of models.values())if(root.visible){shown++;root.traverse(o=>{if(o.isMesh){count++;const g=o.geometry;triangles+=g.index?g.index.count/3:g.attributes.position.count/3;}});}
+ countLabel.textContent=selectedCount.padStart(2,'0');meshLabel.textContent=String(count);triangleLabel.textContent=Math.round(triangles).toLocaleString('zh-CN');visibleLabel.textContent=shown+' / 5';
  status.textContent='● 资产已加载 · '+selectedCount+' 花瓣';
  window.__BP_VIEWER_STATE__={petals:Number(selectedCount),visibleModules:shown,meshObjects:count,ready};
 }
