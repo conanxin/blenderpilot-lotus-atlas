@@ -1,0 +1,57 @@
+{
+  "stage": "P2-L",
+  "version": "L2.2",
+  "unit": "meter",
+  "coordinate": "Blender Z-up -> glTF Y-up",
+  "controller": "L2_Sail_Deployment_Controller",
+  "deployment": {
+    "nominal": 1,
+    "minimum": 0,
+    "maximum": 1,
+    "scale_x": "0.75+0.25*d",
+    "scale_blender_y": "0.65+0.35*d",
+    "sails": {
+      "sail_left": {
+        "pivot_blender_xyz": [
+          -1.35,
+          0,
+          1.43
+        ]
+      },
+      "sail_right": {
+        "pivot_blender_xyz": [
+          1.35,
+          0,
+          1.43
+        ]
+      }
+    }
+  },
+  "human_reference_height_m": 1.8,
+  "files": {
+    "static": {
+      "source_objects": 171,
+      "bytes": 2410740,
+      "file": "static.glb"
+    },
+    "sail_left": {
+      "source_objects": 16,
+      "bytes": 245648,
+      "file": "sail_left.glb"
+    },
+    "sail_right": {
+      "source_objects": 16,
+      "bytes": 245616,
+      "file": "sail_right.glb"
+    },
+    "scale_reference": {
+      "source_objects": 12,
+      "bytes": 66816,
+      "file": "scale_reference.glb"
+    }
+  },
+  "caveats": [
+    "Static GLBs hold the full deployed original positions; web wrapper scales around local pivot",
+    "Kinematic membrane furling is not a physically simulated thin-film folding process"
+  ]
+}
